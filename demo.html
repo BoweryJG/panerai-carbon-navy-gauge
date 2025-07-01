@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panerai Watch - Quick Demo</title>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #FFD700;
+            background: rgba(0,0,0,0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+        .info h3 {
+            margin: 0 0 10px 0;
+        }
+        .info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .launch-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <h3>Panerai Watch Dashboard</h3>
+        <p>✓ Supabase configured</p>
+        <p>✓ Real-time updates ready</p>
+        <p>✓ Mock data available</p>
+        <a href="index.html" class="launch-btn">Launch Dashboard</a>
+    </div>
+    
+    <iframe src="index.html" style="width: 100vw; height: 100vh; border: none;"></iframe>
+    
+    <script>
+        // Auto-configure with your anon key
+        setTimeout(() => {
+            localStorage.setItem('panerai-watch-config', JSON.stringify({
+                metrics: {
+                    '12': { metric: 'revenue_closed', color: '#00ff00' },
+                    '3': { metric: 'opportunities_won', color: '#00ffff' },
+                    '6': { metric: 'win_rate', color: '#ffff00' },
+                    '9': { metric: 'quota_percentage', color: '#ff00ff' }
+                },
+                supabase: {
+                    url: 'https://cbopynuvhcymbumjnvay.supabase.co',
+                    key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNib3B5bnV2aGN5bWJ1bWpudmF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM5OTUxNzMsImV4cCI6MjA1OTU3MTE3M30.UZElMkoHugIt984RtYWyfrRuv2rB67opQdCrFVPCfzU',
+                    table: 'sales_metrics'
+                },
+                updateInterval: 5000,
+                animations: true
+            }));
+        }, 100);
+    </script>
+</body>
+</html>

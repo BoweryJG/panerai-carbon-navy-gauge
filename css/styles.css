@@ -1,0 +1,285 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    padding: 20px;
+    max-width: 1400px;
+    width: 100%;
+}
+
+.watch-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#panerai-watch {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8));
+    animation: subtle-glow 3s ease-in-out infinite;
+}
+
+@keyframes subtle-glow {
+    0%, 100% { filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8)); }
+    50% { filter: drop-shadow(0 20px 50px rgba(255, 215, 0, 0.3)); }
+}
+
+/* LED Display Animations */
+#led-window-12, #led-window-3, #led-window-6, #led-gauge-9 {
+    animation: led-pulse 2s ease-in-out infinite;
+}
+
+@keyframes led-pulse {
+    0%, 100% { opacity: 0.9; }
+    50% { opacity: 1; }
+}
+
+/* Configuration Panel */
+.config-panel {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 30px;
+    width: 400px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.config-panel h2 {
+    color: #FFD700;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.config-section {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: #0a0a0a;
+    border-radius: 8px;
+    border: 1px solid #2a2a2a;
+}
+
+.config-section h3 {
+    color: #FFA500;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.config-section select,
+.config-section input[type="text"],
+.config-section input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.config-section select:focus,
+.config-section input:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+}
+
+.config-section input[type="color"] {
+    width: 50px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    border: none;
+    border-radius: 5px;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #FFA500, #FF8C00);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Scrollbar Styling */
+.config-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.config-panel::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+.config-panel::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+.config-panel::-webkit-scrollbar-thumb:hover {
+    background: #444;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .config-panel {
+        width: 100%;
+        max-width: 500px;
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+        gap: 20px;
+    }
+    
+    .config-panel {
+        padding: 20px;
+    }
+    
+    .config-section {
+        padding: 15px;
+    }
+}
+
+/* Fullscreen Mode */
+.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.fullscreen #panerai-watch {
+    width: 90vmin;
+    height: 90vmin;
+}
+
+.fullscreen .config-panel {
+    display: none;
+}
+
+/* Watch Hand Animations */
+#hour-hand {
+    transform-origin: 300px 300px;
+    animation: rotate-hour 43200s linear infinite;
+}
+
+#minute-hand {
+    transform-origin: 300px 300px;
+    animation: rotate-minute 3600s linear infinite;
+}
+
+#second-hand {
+    transform-origin: 300px 300px;
+    animation: rotate-second 60s linear infinite;
+}
+
+@keyframes rotate-hour {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-minute {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-second {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Loading State */
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    color: #FFD700;
+}
+
+/* Connection Status Indicator */
+.connection-status {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: rgba(26, 26, 26, 0.9);
+    border-radius: 20px;
+    border: 1px solid #333;
+}
+
+.connection-status .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ff3333;
+}
+
+.connection-status.connected .dot {
+    background: #33ff33;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.2); }
+}
