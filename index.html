@@ -3,7 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panerai Navy SEALs Digital Watch - Sales Dashboard</title>
+    <title>Panerai Navy SEALs - Tactical Operations Dashboard</title>
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Military-grade Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -293,12 +301,13 @@
                     <circle cx="230" cy="470" r="8" fill="#E8F5E8" style="filter: url(#bevel)"/>
                 </g>
                 
-                <!-- PANERAI Text -->
-                <text x="300" y="200" text-anchor="middle" fill="#fff" font-size="24" font-weight="300" letter-spacing="3">PANERAI</text>
-                <text x="300" y="220" text-anchor="middle" fill="#fff" font-size="14" font-weight="300" letter-spacing="2">SUBMERSIBLE</text>
+                <!-- PANERAI Text with Military Styling -->
+                <text x="300" y="200" text-anchor="middle" fill="#fff" font-size="24" font-weight="300" letter-spacing="3" style="font-family: var(--font-tactical)">PANERAI</text>
+                <text x="300" y="220" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" letter-spacing="4" style="font-family: var(--font-tactical); text-transform: uppercase;">TACTICAL OPS</text>
                 
-                <!-- NAVY SEALs Text -->
-                <text x="300" y="400" text-anchor="middle" fill="#fff" font-size="18" font-weight="300" letter-spacing="2">NAVY SEALS</text>
+                <!-- Military Designation -->
+                <text x="300" y="400" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" letter-spacing="3" style="font-family: var(--font-tactical)">FORGED FOR DEPTH</text>
+                <text x="300" y="418" text-anchor="middle" fill="var(--tactical-yellow)" font-size="10" font-weight="400" letter-spacing="2" opacity="0.8">MIL-SPEC CERTIFIED</text>
                 
                 <!-- Enhanced Watch Hands with Luminous Material -->
                 <g id="watch-hands">
@@ -367,62 +376,62 @@
         
         <!-- Configuration Panel -->
         <div class="config-panel">
-            <h2>LED Display Configuration</h2>
+            <h2>TACTICAL COMMAND</h2>
             
             <div class="config-section">
-                <h3>12 O'Clock Display</h3>
+                <h3>PRIMARY OBJECTIVE [1200]</h3>
                 <select id="config-12-metric">
-                    <option value="revenue_closed">Revenue Closed</option>
-                    <option value="quota_achieved">Quota Achieved</option>
-                    <option value="pipeline_value">Pipeline Value</option>
-                    <option value="revenue_recurring">Recurring Revenue</option>
-                    <option value="quota_target">Quota Target</option>
+                    <option value="revenue_closed">Mission Revenue</option>
+                    <option value="quota_achieved">Target Achieved</option>
+                    <option value="pipeline_value">Asset Value</option>
+                    <option value="revenue_recurring">Sustained Ops</option>
+                    <option value="quota_target">Mission Target</option>
                 </select>
-                <input type="color" id="config-12-color" value="#00ff00">
+                <input type="color" id="config-12-color" value="#00ff88">
             </div>
             
             <div class="config-section">
-                <h3>3 O'Clock Display</h3>
+                <h3>TACTICAL STATUS [0300]</h3>
                 <select id="config-3-metric">
-                    <option value="pipeline_count">Pipeline Count</option>
-                    <option value="opportunities_total">Total Opportunities</option>
-                    <option value="opportunities_won">Opportunities Won</option>
-                    <option value="opportunities_lost">Opportunities Lost</option>
+                    <option value="pipeline_count">Active Ops</option>
+                    <option value="opportunities_total">Total Targets</option>
+                    <option value="opportunities_won">Confirmed Hits</option>
+                    <option value="opportunities_lost">Failed Ops</option>
                 </select>
-                <input type="color" id="config-3-color" value="#00ff00">
+                <input type="color" id="config-3-color" value="#00ff88">
             </div>
             
             <div class="config-section">
-                <h3>6 O'Clock Display</h3>
+                <h3>PERFORMANCE METRICS [0600]</h3>
                 <select id="config-6-metric">
-                    <option value="average_deal_size">Avg Deal Size</option>
-                    <option value="win_rate">Win Rate %</option>
-                    <option value="pipeline_velocity">Pipeline Velocity</option>
-                    <option value="pipeline_coverage">Pipeline Coverage</option>
+                    <option value="average_deal_size">Avg Strike Value</option>
+                    <option value="win_rate">Success Rate %</option>
+                    <option value="pipeline_velocity">Op Velocity</option>
+                    <option value="pipeline_coverage">Coverage Ratio</option>
                 </select>
-                <input type="color" id="config-6-color" value="#00ff00">
+                <input type="color" id="config-6-color" value="#00ff88">
             </div>
             
             <div class="config-section">
-                <h3>9 O'Clock Gauge</h3>
+                <h3>READINESS GAUGE [0900]</h3>
                 <select id="config-9-metric">
-                    <option value="quota_percentage">Quota %</option>
-                    <option value="win_rate_gauge">Win Rate</option>
-                    <option value="pipeline_coverage_gauge">Pipeline Coverage</option>
-                    <option value="velocity_score">Velocity Score</option>
+                    <option value="quota_percentage">Mission Progress</option>
+                    <option value="win_rate_gauge">Strike Rate</option>
+                    <option value="pipeline_coverage_gauge">Theater Coverage</option>
+                    <option value="velocity_score">Op Tempo</option>
                 </select>
-                <input type="color" id="config-9-color" value="#00ff00">
+                <input type="color" id="config-9-color" value="#00ff88">
             </div>
             
             <div class="config-section">
-                <h3>Supabase Settings</h3>
-                <input type="text" id="supabase-url" placeholder="Supabase URL" value="https://cbopynuvhcymbumjnvay.supabase.co">
-                <input type="password" id="supabase-key" placeholder="Anon Key">
-                <input type="text" id="supabase-table" placeholder="Table Name" value="sales_metrics">
+                <h3>SECURE COMMS</h3>
+                <input type="text" id="supabase-url" placeholder="Base URL" value="https://cbopynuvhcymbumjnvay.supabase.co">
+                <input type="password" id="supabase-key" placeholder="Auth Key">
+                <input type="text" id="supabase-table" placeholder="Data Stream" value="sales_metrics">
             </div>
             
-            <button id="save-config">Save Configuration</button>
-            <button id="toggle-fullscreen">Fullscreen</button>
+            <button id="save-config">DEPLOY CONFIG</button>
+            <button id="toggle-fullscreen">TACTICAL VIEW</button>
         </div>
     </div>
     

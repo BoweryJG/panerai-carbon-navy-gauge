@@ -1,3 +1,23 @@
+/* CSS Variables for Military Color Grading */
+:root {
+    --tactical-black: #0a0a0a;
+    --deep-ocean: #001f3f;
+    --tungsten-gray: #2c3e50;
+    --steel-gray: #34495e;
+    --tactical-yellow: #f39c12;
+    --alert-green: #00ff88;
+    --danger-red: #e74c3c;
+    --ghost-white: #ecf0f1;
+    
+    /* Typography */
+    --font-tactical: 'Orbitron', monospace;
+    --font-system: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+    
+    /* Shadows & Effects */
+    --shadow-tactical: 0 4px 20px rgba(0, 31, 63, 0.5);
+    --glow-tactical: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,14 +25,54 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #0a0a0a;
-    color: #fff;
+    font-family: var(--font-system);
+    background: var(--tactical-black);
+    color: var(--ghost-white);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    position: relative;
+}
+
+/* Military Overlay Tint */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 31, 63, 0.2) 0%,
+        rgba(0, 0, 0, 0.4) 50%,
+        rgba(0, 31, 63, 0.3) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Noise Texture Overlay */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.01) 2px,
+            rgba(255, 255, 255, 0.01) 4px
+        );
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.5;
 }
 
 .container {
@@ -22,6 +82,8 @@ body {
     padding: 20px;
     max-width: 1400px;
     width: 100%;
+    position: relative;
+    z-index: 10;
 }
 
 .watch-container {
@@ -30,6 +92,14 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+}
+
+/* 3D Transform Variables */
+.watch-container {
+    --rotateX: 0deg;
+    --rotateY: 0deg;
 }
 
 #panerai-watch {
@@ -37,6 +107,11 @@ body {
     height: auto;
     filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8));
     animation: subtle-glow 3s ease-in-out infinite;
+    transform: 
+        rotateX(var(--rotateX)) 
+        rotateY(var(--rotateY));
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
 }
 
 @keyframes subtle-glow {
@@ -54,39 +129,86 @@ body {
     50% { opacity: 1; }
 }
 
-/* Configuration Panel */
+/* Configuration Panel with Glassmorphism */
 .config-panel {
-    background: #1a1a1a;
-    border: 1px solid #333;
+    background: rgba(26, 26, 26, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     padding: 30px;
     width: 400px;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+/* Glassmorphism top reflection */
+.config-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        transparent 100%
+    );
+    pointer-events: none;
+}
+
+@supports not (backdrop-filter: blur(10px)) {
+    .config-panel {
+        background: rgba(26, 26, 26, 0.95);
+    }
 }
 
 .config-panel h2 {
-    color: #FFD700;
+    color: var(--tactical-yellow);
     margin-bottom: 20px;
     font-size: 24px;
     text-align: center;
-    letter-spacing: 1px;
+    letter-spacing: 3px;
+    font-family: var(--font-tactical);
+    font-weight: 900;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .config-section {
     margin-bottom: 25px;
     padding: 20px;
-    background: #0a0a0a;
+    background: rgba(10, 10, 10, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     border-radius: 8px;
-    border: 1px solid #2a2a2a;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+/* Subtle glow on hover */
+.config-section:hover {
+    border-color: rgba(0, 255, 136, 0.2);
+    box-shadow: 
+        inset 0 1px 3px rgba(0, 0, 0, 0.3),
+        0 0 10px rgba(0, 255, 136, 0.1);
 }
 
 .config-section h3 {
-    color: #FFA500;
+    color: var(--alert-green);
     margin-bottom: 15px;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--font-tactical);
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .config-section select,
@@ -123,20 +245,46 @@ button {
     width: 100%;
     padding: 12px;
     margin-top: 10px;
-    background: linear-gradient(135deg, #FFD700, #FFA500);
+    background: linear-gradient(135deg, var(--tactical-yellow), var(--alert-green));
     border: none;
     border-radius: 5px;
-    color: #000;
-    font-size: 16px;
-    font-weight: bold;
+    color: var(--tactical-black);
+    font-size: 14px;
+    font-weight: 900;
+    font-family: var(--font-tactical);
+    text-transform: uppercase;
+    letter-spacing: 2px;
     cursor: pointer;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Button tactical effect */
+button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
 }
 
 button:hover {
-    background: linear-gradient(135deg, #FFA500, #FF8C00);
+    background: linear-gradient(135deg, var(--alert-green), var(--tactical-yellow));
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
+    box-shadow: 
+        0 5px 15px rgba(0, 255, 136, 0.4),
+        0 0 30px rgba(0, 255, 136, 0.2);
+}
+
+button:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 button:active {
@@ -210,6 +358,92 @@ button:active {
 
 .fullscreen .config-panel {
     display: none;
+}
+
+/* Hero Assembly Animation */
+@keyframes assembleWatch {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateZ(-200px);
+        filter: blur(10px);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(0.9) translateZ(-100px);
+        filter: blur(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateZ(0);
+        filter: blur(0);
+    }
+}
+
+/* Component Assembly Sequence */
+#panerai-watch > * {
+    animation: assembleComponents 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    opacity: 0;
+}
+
+@keyframes assembleComponents {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Staggered delays for assembly effect */
+#panerai-watch > circle:nth-child(1) { animation-delay: 0.1s; }
+#panerai-watch > circle:nth-child(2) { animation-delay: 0.2s; }
+#panerai-watch > circle:nth-child(3) { animation-delay: 0.3s; }
+#panerai-watch > g:nth-child(1) { animation-delay: 0.4s; }
+#panerai-watch > g:nth-child(2) { animation-delay: 0.5s; }
+#panerai-watch > g:nth-child(3) { animation-delay: 0.6s; }
+#panerai-watch > text { animation-delay: 0.7s; }
+#watch-hands { animation-delay: 0.8s; }
+#glass-dome { animation-delay: 0.9s; }
+
+/* Military HUD Boot Sequence */
+@keyframes hudBoot {
+    0% {
+        content: "INITIALIZING...";
+    }
+    25% {
+        content: "LOADING TACTICAL SYSTEMS...";
+    }
+    50% {
+        content: "CALIBRATING SENSORS...";
+    }
+    75% {
+        content: "ESTABLISHING SECURE LINK...";
+    }
+    100% {
+        content: "SYSTEM OPERATIONAL";
+    }
+}
+
+.hud-boot {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--alert-green);
+    font-family: var(--font-tactical);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: hudBoot 3s steps(1) forwards;
+    opacity: 0;
+    animation: hudBoot 3s steps(1) forwards, fadeInOut 3s ease-out forwards;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    20%, 80% { opacity: 1; }
 }
 
 /* Watch Hand Animations */

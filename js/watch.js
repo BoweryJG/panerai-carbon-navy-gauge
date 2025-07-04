@@ -11,12 +11,41 @@ class PaneraiWatch {
     }
 
     init() {
+        this.showHUDBoot();
         this.setupEventListeners();
         this.loadConfiguration();
         this.addMinuteMarks();
         this.startClock();
         this.connectToSupabase();
         this.createConnectionIndicator();
+        this.setup3DInteraction();
+    }
+    
+    showHUDBoot() {
+        const hudElement = document.createElement('div');
+        hudElement.className = 'hud-boot';
+        hudElement.textContent = 'INITIALIZING...';
+        document.body.appendChild(hudElement);
+        
+        // Update text during boot sequence
+        const messages = [
+            'INITIALIZING...',
+            'LOADING TACTICAL SYSTEMS...',
+            'CALIBRATING SENSORS...',
+            'ESTABLISHING SECURE LINK...',
+            'SYSTEM OPERATIONAL'
+        ];
+        
+        let messageIndex = 0;
+        const bootInterval = setInterval(() => {
+            messageIndex++;
+            if (messageIndex < messages.length) {
+                hudElement.textContent = messages[messageIndex];
+            } else {
+                clearInterval(bootInterval);
+                setTimeout(() => hudElement.remove(), 500);
+            }
+        }, 600);
     }
 
     setupEventListeners() {
@@ -337,6 +366,75 @@ class PaneraiWatch {
                 indicator.classList.remove('connected');
                 text.textContent = 'Disconnected';
         }
+    }
+    
+    // 3D Interaction Setup
+    setup3DInteraction() {
+        const watchContainer = document.querySelector('.watch-container');
+        const watch = document.getElementById('panerai-watch');
+        
+        let isInteracting = false;
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetRotateX = 0;
+        let targetRotateY = 0;
+        let currentRotateX = 0;
+        let currentRotateY = 0;
+        
+        // Mouse interaction
+        watchContainer.addEventListener('mousemove', (e) => {
+            if (!isInteracting) return;
+            
+            const rect = watchContainer.getBoundingClientRect();
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            mouseX = e.clientX - rect.left - centerX;
+            mouseY = e.clientY - rect.top - centerY;
+            
+            // Calculate rotation based on mouse position
+            targetRotateY = (mouseX / centerX) * 15; // Max 15 degrees
+            targetRotateX = -(mouseY / centerY) * 15; // Max 15 degrees
+        });
+        
+        watchContainer.addEventListener('mouseenter', () => {
+            isInteracting = true;
+        });
+        
+        watchContainer.addEventListener('mouseleave', () => {
+            isInteracting = false;
+            targetRotateX = 0;
+            targetRotateY = 0;
+        });
+        
+        // Touch interaction for mobile
+        watchContainer.addEventListener('touchmove', (e) => {
+            const touch = e.touches[0];
+            const rect = watchContainer.getBoundingClientRect();
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            mouseX = touch.clientX - rect.left - centerX;
+            mouseY = touch.clientY - rect.top - centerY;
+            
+            targetRotateY = (mouseX / centerX) * 15;
+            targetRotateX = -(mouseY / centerY) * 15;
+        });
+        
+        // Smooth animation loop
+        const animate3D = () => {
+            // Smooth interpolation
+            currentRotateX += (targetRotateX - currentRotateX) * 0.1;
+            currentRotateY += (targetRotateY - currentRotateY) * 0.1;
+            
+            // Apply transform
+            watchContainer.style.setProperty('--rotateX', `${currentRotateX}deg`);
+            watchContainer.style.setProperty('--rotateY', `${currentRotateY}deg`);
+            
+            requestAnimationFrame(animate3D);
+        };
+        
+        animate3D();
     }
 }
 
