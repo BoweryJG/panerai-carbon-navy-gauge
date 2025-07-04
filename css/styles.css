@@ -253,6 +253,86 @@ button:active {
     color: #FFD700;
 }
 
+/* Micro-animations for Enhanced Realism */
+@keyframes carbonShimmer {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 0.8; }
+}
+
+@keyframes metalGleam {
+    0%, 100% { opacity: 0.3; }
+    25% { opacity: 0.35; }
+    50% { opacity: 0.4; }
+    75% { opacity: 0.35; }
+}
+
+@keyframes lumiPulse {
+    0%, 100% { opacity: 0.6; filter: brightness(1); }
+    50% { opacity: 0.65; filter: brightness(1.1); }
+}
+
+@keyframes glassShift {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    33% { transform: translateX(-1px) translateY(-1px); }
+    66% { transform: translateX(1px) translateY(1px); }
+}
+
+@keyframes ledFlicker {
+    0%, 95%, 100% { opacity: 1; }
+    96%, 99% { opacity: 0.95; }
+}
+
+/* Apply animations to elements */
+#carbonFiberOverlay {
+    animation: carbonShimmer 8s ease-in-out infinite;
+}
+
+#brushedMetal {
+    animation: metalGleam 10s ease-in-out infinite;
+}
+
+#hour-markers-glow {
+    animation: lumiPulse 4s ease-in-out infinite;
+}
+
+#glass-dome {
+    animation: glassShift 20s ease-in-out infinite;
+}
+
+#led-display-12, #led-display-3, #led-display-6, #led-percent-9 {
+    animation: ledFlicker 5s ease-in-out infinite;
+}
+
+/* Light play animation for metallic surfaces */
+@keyframes lightPlay {
+    0%, 100% { 
+        filter: brightness(1) contrast(1);
+    }
+    25% { 
+        filter: brightness(1.05) contrast(1.02);
+    }
+    50% { 
+        filter: brightness(1.02) contrast(1.01);
+    }
+    75% { 
+        filter: brightness(0.98) contrast(0.99);
+    }
+}
+
+#crown, #crown-guard {
+    animation: lightPlay 15s ease-in-out infinite;
+}
+
+/* Subtle rotation for second hand shadow */
+@keyframes shadowRotate {
+    from { filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.4)); }
+    to { filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.5)); }
+}
+
+#second-hand {
+    animation: shadowRotate 60s linear infinite;
+}
+
 /* Connection Status Indicator */
 .connection-status {
     position: absolute;
