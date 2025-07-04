@@ -487,6 +487,60 @@ button:active {
     color: #FFD700;
 }
 
+/* Connection Status */
+.connection-status {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid #ff0000;
+    text-align: center;
+    color: #ff0000;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.connection-status.connected {
+    background: rgba(0, 255, 0, 0.1);
+    border-color: #00ff00;
+    color: #00ff00;
+}
+
+/* Night Mode */
+body.night-mode {
+    background: #000;
+}
+
+.night-mode #hour-markers-glow,
+.night-mode #led-gauge-fill,
+.night-mode #led-display-12,
+.night-mode #led-display-3,
+.night-mode #led-display-6,
+.night-mode #led-percent-9 {
+    filter: drop-shadow(0 0 12px currentColor) brightness(1.8);
+}
+
+.night-mode .hour-markers rect,
+.night-mode .hour-markers circle {
+    filter: drop-shadow(0 0 6px #E8F5E8) brightness(1.5);
+}
+
+.night-mode #lumiNovaGlow stop:first-child {
+    stop-color: #00FFB2;
+    stop-opacity: 1;
+}
+
+.night-mode #lumiGlow feGaussianBlur {
+    stdDeviation: 5;
+}
+
+.night-mode .config-panel {
+    background: rgba(10, 10, 10, 0.95);
+    border-color: #333;
+}
+
 /* Micro-animations for Enhanced Realism */
 @keyframes carbonShimmer {
     0%, 100% { opacity: 0.7; }

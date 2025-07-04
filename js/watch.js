@@ -93,12 +93,24 @@ class PaneraiWatch {
             this.toggleFullscreen();
         });
         
+        // Night mode toggle
+        document.getElementById('toggle-night-mode').addEventListener('click', () => {
+            this.toggleNightMode();
+        });
+        
         // ESC key to exit fullscreen
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && this.isFullscreen) {
                 this.toggleFullscreen();
             }
         });
+        
+        // Restore night mode preference
+        const savedNightMode = localStorage.getItem('nightMode') === 'true';
+        if (savedNightMode) {
+            document.body.classList.add('night-mode');
+            document.getElementById('toggle-night-mode').textContent = 'DAY OPS';
+        }
     }
 
     loadConfiguration() {
@@ -435,6 +447,29 @@ class PaneraiWatch {
         };
         
         animate3D();
+    }
+    
+    toggleFullscreen() {
+        const container = document.querySelector('.container');
+        this.isFullscreen = !this.isFullscreen;
+        
+        if (this.isFullscreen) {
+            container.classList.add('fullscreen');
+        } else {
+            container.classList.remove('fullscreen');
+        }
+    }
+    
+    toggleNightMode() {
+        document.body.classList.toggle('night-mode');
+        
+        // Store night mode preference
+        const isNightMode = document.body.classList.contains('night-mode');
+        localStorage.setItem('nightMode', isNightMode);
+        
+        // Update button text
+        const button = document.getElementById('toggle-night-mode');
+        button.textContent = isNightMode ? 'DAY OPS' : 'NIGHT OPS';
     }
 }
 
